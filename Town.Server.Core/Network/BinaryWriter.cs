@@ -1,6 +1,6 @@
 ﻿namespace Town.Server.Core.Network;
 
-internal class BinaryWriter : IDisposable {
+public class BinaryWriter : IDisposable {
     private readonly Stream Stream;
     private readonly byte[] Buffer = new byte[sizeof(long)];
 
