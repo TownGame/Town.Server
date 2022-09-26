@@ -1,9 +1,14 @@
 ﻿using System.Net;
 using System.Net.WebSockets;
+using Town.Server.Core;
+using Town.Server.Core.Network;
+using Town.Server.Core.Players;
 
 namespace Town.Server.Middleware;
 
 public class TownMiddleware : IMiddleware {
+    private readonly TownServer Server = new TownServer();
+
     public async Task InvokeAsync(HttpContext context, RequestDelegate next) {
         if (context.Request.Path == "/game") {
             await Initiate(context);
@@ -18,13 +23,9 @@ public class TownMiddleware : IMiddleware {
             return;
         }
         WebSocket webSocket = await context.WebSockets.AcceptWebSocketAsync();
-        await Listen(webSocket);
-    }
-
-    private async Task Listen(WebSocket webSocket) {
-        byte[] buffer = new byte[1024 * 4];
-        while (webSocket.State == WebSocketState.Open) {
-            WebSocketReceiveResult result = await webSocket.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None);
-        }
+        NetworkHandler networkHandler = new NetworkHandler(webSocket);
+        Player player = new Player(networkHandler);
+        await Server.JoinLobby(player);
+        await networkHandler.Listen();
     }
 }

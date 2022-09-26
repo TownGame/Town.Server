@@ -13,7 +13,7 @@ public class Program {
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
 
-        builder.Services.AddTransient<TownMiddleware>();
+        builder.Services.AddSingleton<TownMiddleware>();
 
         var app = builder.Build();
 
