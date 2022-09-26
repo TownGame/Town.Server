@@ -1,4 +1,5 @@
 ﻿using System.Net.WebSockets;
+using Town.Server.Core.Network.Packets;
 
 namespace Town.Server.Core.Network;
 
@@ -11,6 +12,10 @@ public class NetworkHandler {
     }
 
     public async Task SendPacket<T>(T packet) where T : IPacket {
+        if (WebSocket.State != WebSocketState.Open) {
+            return;
+        }
+
         using MemoryStream memoryStream = new MemoryStream();
         using BinaryWriter writer = new BinaryWriter(memoryStream);
         writer.WriteInt(packet.PacketType.Id);

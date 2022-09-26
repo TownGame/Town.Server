@@ -1,6 +1,6 @@
 ﻿using Town.Server.Core.Network.Packets.Types;
 
-namespace Town.Server.Core.Network;
+namespace Town.Server.Core.Network.Packets;
 
 public interface IPacket {
     IPacketType PacketType { get; }

@@ -1,4 +1,5 @@
 ﻿using Town.Server.Core.Network.Packets;
+using Town.Server.Core.Network.Packets.S2C;
 using Town.Server.Core.Players;
 
 namespace Town.Server.Core.Lobbies;
@@ -14,6 +15,13 @@ public class Lobby {
         }
         await player.NetworkHandler.SendPacket(new JoinLobbyPacket(Players.Count));
         Players.Add(player);
+        await SendGlobalPacket(new PlayerJoinedLobbyPacket());
         return true;
+    }
+
+    private async Task SendGlobalPacket(IPacket packet) {
+        foreach (Player player in Players) {
+            await player.NetworkHandler.SendPacket(packet);
+        }
     }
 }

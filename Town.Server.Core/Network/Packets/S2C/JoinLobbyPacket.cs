@@ -1,6 +1,6 @@
 ﻿using Town.Server.Core.Network.Packets.Types;
 
-namespace Town.Server.Core.Network.Packets;
+namespace Town.Server.Core.Network.Packets.S2C;
 
 public class JoinLobbyPacket : IPacket {
     private int PlayerCount;
