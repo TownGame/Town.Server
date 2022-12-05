@@ -13,6 +13,7 @@ public class Program {
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
 
+        builder.Services.AddTransient<GoogleAuthorisationMiddleware>();
         builder.Services.AddSingleton<TownMiddleware>();
 
         var app = builder.Build();
@@ -23,6 +24,7 @@ public class Program {
             app.UseSwaggerUI();
         }
 
+        app.UseGoogleAuthorisationMiddleware();
         app.UseWebSockets();
         app.UseTownMiddleware();
 
