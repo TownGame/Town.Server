@@ -1,3 +1,5 @@
+using Microsoft.EntityFrameworkCore;
+using Town.Server.Databases;
 using Town.Server.Middleware;
 
 namespace Town.Server;
@@ -11,6 +13,7 @@ public class Program {
         builder.Services.AddControllers();
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
         builder.Services.AddEndpointsApiExplorer();
+        builder.Services.AddDbContext<TownContext>(o => o.UseSqlServer(builder.Configuration.GetConnectionString("mssql_towndb")));
         builder.Services.AddSwaggerGen();
 
         builder.Services.AddTransient<GoogleAuthorisationMiddleware>();
