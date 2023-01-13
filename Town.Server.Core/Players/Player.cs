@@ -3,9 +3,9 @@
 namespace Town.Server.Core.Players;
 
 public class Player {
-    public NetworkHandler NetworkHandler { get; }
+    public INetworkHandler NetworkHandler { get; }
 
-    public Player(NetworkHandler networkHandler) {
+    public Player(INetworkHandler networkHandler) {
         NetworkHandler = networkHandler;
     }
 }

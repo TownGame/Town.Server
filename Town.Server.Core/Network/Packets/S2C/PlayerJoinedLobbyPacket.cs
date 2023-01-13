@@ -8,4 +8,6 @@ public class PlayerJoinedLobbyPacket : IPacket {
     public void Read(BinaryReader reader) { }
 
     public void Write(BinaryWriter writer) { }
+
+    public void Apply(INetworkListener listener) { }
 }

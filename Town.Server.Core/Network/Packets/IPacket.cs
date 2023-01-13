@@ -6,4 +6,5 @@ public interface IPacket {
     IPacketType PacketType { get; }
     void Read(BinaryReader reader);
     void Write(BinaryWriter writer);
+    void Apply(INetworkListener listener);
 }

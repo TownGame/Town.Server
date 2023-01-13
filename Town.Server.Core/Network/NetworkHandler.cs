@@ -3,7 +3,7 @@ using Town.Server.Core.Network.Packets;
 
 namespace Town.Server.Core.Network;
 
-public class NetworkHandler {
+public class NetworkHandler : INetworkHandler, INetworkListener {
     private readonly WebSocket WebSocket;
     private readonly byte[] Buffer = new byte[1024 * 4];
 
@@ -43,5 +43,8 @@ public class NetworkHandler {
         using BinaryReader reader = new BinaryReader(memoryStream);
 
         int id = reader.ReadInt();
-    }
+        IPacket packet = AllPackets.CreatePacket(id);
+        packet.Read(reader);
+        packet.Apply(this);
+    }    
 }

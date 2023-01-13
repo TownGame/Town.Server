@@ -18,4 +18,6 @@ public class JoinLobbyPacket : IPacket {
     public void Write(BinaryWriter writer) {
         writer.WriteInt(PlayerCount);
     }
+
+    public void Apply(INetworkListener listener) { }
 }
